@@ -1,23 +1,38 @@
 from cv2 import cv2
 import numpy as np
+from numpy.core.fromnumeric import size
 
 class NewWebcam:
     def __init__(self):
         self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         self.cap.set(3, 640)  # width set, width has id 3
         self.cap.set(4, 480)  # height set, width has id 4
-        self.colorList = [[37, 88, 41, 255, 114, 255], # 0 - light green
-                          [96, 147, 59, 255, 55, 255], # 1 - dark blue
-                          [139, 179, 142, 255, 173, 255]] # 2 - pink
-        self.colorValues = [[0, 255, 0], #green
-                            [204, 0, 0], #dark blue
-                            [127, 0, 255]] #pink
+        self.colorList = []
+        self.colorValues = []
         self.myPoints = []
         # self.winname = "TrackBars"
         # self.trackbar_name = ["Hue min", "Hue max",
                             #   "Sat min", "Sat max", "Val min", "Val max"]
+    def setcolorList(self, colorList):
+        with open("colorList.txt") as file:
+            for line in file:
+                line = line.strip()
+                colorList.append(line.split(" "))
+        for i in range(0, len(colorList)):
+            colorList[i] = list(map(int, colorList[i]))
+
+    def setcolorValues(self, colorValues):
+        with open("colorValues.txt") as file:
+            for line in file:
+                line = line.strip()
+                colorValues.append(line.split(" "))
+        for i in range(0, len(colorValues)):
+            colorValues[i] = list(map(int, colorValues[i]))
 
     def webcamdisplay(self):
+        self.readcolorList(self.colorList)
+        print(self.colorList)
+        self.readcolorValues(self.colorValues)
         while True:
             self.success, self.img = self.cap.read()
             self.imgResult = self.img.copy();
