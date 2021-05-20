@@ -10,9 +10,7 @@ class NewWebcam:
         self.colorList = []
         self.colorValues = []
         self.myPoints = []
-        # self.winname = "TrackBars"
-        # self.trackbar_name = ["Hue min", "Hue max",
-                            #   "Sat min", "Sat max", "Val min", "Val max"]
+        
     def setcolorList(self, colorList):
         with open("colorList.txt") as file:
             for line in file:
@@ -79,42 +77,5 @@ class NewWebcam:
 
     def drawOnCanvas(self, myPoints, colorValues):
         for point in myPoints:
-            cv2.circle(self.imgResult,(point[0],point[1]),5,colorValues[point[2]],cv2.FILLED)
-
-    # def updateColorList(self, colorList, colorValues):
-    #     #use trackbar and allow user to detect color. Make numpy array of those HSV values and use cvtColor to convert it to RGB.
-    #     rgbarr, hsvarr = self.inputColorList()
-    #     self.colorList.append(hsvarr)
-    #     self.colorValues.append(rgbarr)
-
-    #     pass
-
-    # def inputColorList(self):
-    #     # default run will be for skin-hues, but user will be able to play around.
-    #     self.trackbarwindow()
-    #     h_min = cv2.getTrackbarPos(self.trackbar_name[0], self.winname)
-    #     h_max = cv2.getTrackbarPos(self.trackbar_name[1], self.winname)
-    #     s_min = cv2.getTrackbarPos(self.trackbar_name[2], self.winname)
-    #     s_max = cv2.getTrackbarPos(self.trackbar_name[3], self.winname)
-    #     v_min = cv2.getTrackbarPos(self.trackbar_name[4], self.winname)
-    #     v_max = cv2.getTrackbarPos(self.trackbar_name[5], self.winname)
-
-    #     hsvarr = np.array([h_min, h_max,  s_min, s_max, v_min, v_max])
-    #     hsvarr1 = np.array([(h_min+h_max)/2, (s_min+s_max)/2, (v_min+v_max)/2])
-    #     rgbarr = cv2.cvtColor(hsvarr1, cv2.COLOR_HSV2BGR)
-    #     return rgbarr, hsvarr;
+            cv2.circle(self.imgResult,(point[0],point[1]),5,colorValues[point[2]],cv2.FILLED)   
     
-    # def trackbarwindow(self):
-    #     def empty(a):
-    #         pass
-    #     cv2.namedWindow(self.winname)
-    #     cv2.resizeWindow(self.winname, 640, 240)
-    #     cv2.createTrackbar(self.trackbar_name[0], self.winname, 0, 179, empty)
-    #     cv2.createTrackbar(self.trackbar_name[1], self.winname, 88, 179, empty)
-    #     cv2.createTrackbar(self.trackbar_name[2], self.winname, 41, 255, empty)
-    #     cv2.createTrackbar(
-    #         self.trackbar_name[3], self.winname, 255, 255, empty)
-    #     cv2.createTrackbar(
-    #         self.trackbar_name[4], self.winname, 114, 255, empty)
-    #     cv2.createTrackbar(
-    #         self.trackbar_name[5], self.winname, 255, 255, empty)
