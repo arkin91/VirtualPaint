@@ -1,19 +1,18 @@
 from cv2 import cv2
 import numpy as np
-from proj1 import NewWebcam
+from proj1 import VirtualPainter
 
-class ColorUpdate(NewWebcam):
+class ColorUpdate(VirtualPainter):
     def __init__(self):
-        super().__init__()
-        self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        self.cap.set(3, 640)  # width set, width has id 3
-        self.cap.set(4, 480)  # height set, width has id 4
+        VirtualPainter.__init__(self)
         self.winname = "TrackBars"
         self.trackbar_name = ["Hue min", "Hue max",
                               "Sat min", "Sat max", "Val min", "Val max"]
 
     def updateColors(self):
         #use trackbar and allow user to detect color. Make numpy array of those HSV values and use cvtColor to convert it to RGB.
+        bgrarr = []
+        hsvarr = []
         self.trackbarwindow()
         while True:   
             self.success, self.img = self.cap.read() 
@@ -22,7 +21,13 @@ class ColorUpdate(NewWebcam):
             self.maskDisplay(hsvarr, self.img)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-            # show prompt to save the colors, if yes, write to txt files.
+        # show prompt to save the colors, if yes, write to txt files.
+        print("Press y/Y to save your detected color")
+        if input().lower() == 'y' :
+            self.colorList.append(hsvarr)
+            self.colorValues.append(bgrarr)
+            self.appendColorList(hsvarr)
+            self.appendColorList(bgrarr)
 
     def trackbarwindow(self):
         def empty(a):
@@ -60,3 +65,9 @@ class ColorUpdate(NewWebcam):
         mask = cv2.inRange(imgHSV, lower, upper)
         imgresult = cv2.bitwise_and(img, img, mask=mask)
         cv2.imshow("Masked Feed", imgresult)
+    
+    def appendColorList(self, arr):
+        pass
+
+    def appendColorValues(self, arr):
+        pass
