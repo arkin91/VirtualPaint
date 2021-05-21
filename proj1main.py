@@ -1,8 +1,8 @@
-from proj1 import NewWebcam
+from proj1 import VirtualPainter
 
 # from cam import webcamDisplay
 
 print("type q to exit the feed")
 # flag = True
-wb = NewWebcam()
-wb.webcamdisplay()
+wb = VirtualPainter()
+wb.displayPainter()

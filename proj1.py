@@ -2,35 +2,36 @@ from cv2 import cv2
 import numpy as np
 from numpy.core.fromnumeric import size
 
-class NewWebcam:
+class VirtualPainter:
     def __init__(self):
         self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         self.cap.set(3, 640)  # width set, width has id 3
         self.cap.set(4, 480)  # height set, width has id 4
-        self.colorList = []
-        self.colorValues = []
+        self.colorList = self.setcolorList()
+        self.colorValues = self.setcolorValues()
         self.myPoints = []
         
-    def setcolorList(self, colorList):
+    def setcolorList(self):
+        colorList = []
         with open("colorList.txt") as file:
             for line in file:
                 line = line.strip()
                 colorList.append(line.split(" "))
         for i in range(0, len(colorList)):
             colorList[i] = list(map(int, colorList[i]))
+        return colorList
 
-    def setcolorValues(self, colorValues):
+    def setcolorValues(self):
+        colorValues = []
         with open("colorValues.txt") as file:
             for line in file:
                 line = line.strip()
                 colorValues.append(line.split(" "))
         for i in range(0, len(colorValues)):
             colorValues[i] = list(map(int, colorValues[i]))
+        return colorValues
 
-    def webcamdisplay(self):
-        self.readcolorList(self.colorList)
-        print(self.colorList)
-        self.readcolorValues(self.colorValues)
+    def diaplayPaint(self):
         while True:
             self.success, self.img = self.cap.read()
             self.imgResult = self.img.copy();
