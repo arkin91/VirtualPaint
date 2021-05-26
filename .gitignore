@@ -1,4 +1,5 @@
-colorList.txt colorValues.txt
+colorList.txt 
+colorValues.txt
 methodTester.py
 tester.py
 __pycache__
